@@ -10,6 +10,19 @@
                    required autofocus>
             <button type="submit" class="btn-primary">开始处理</button>
         </div>
+
+        <div class="style-selector">
+            <label for="note_style">笔记风格</label>
+            <div class="style-options">
+                {% for key, style in note_styles.items() %}
+                <label class="style-option {% if key == 'default' %}selected{% endif %}">
+                    <input type="radio" name="note_style" value="{{ key }}"
+                           {% if key == 'default' %}checked{% endif %}>
+                    <span class="style-label">{{ style.label }}</span>
+                </label>
+                {% endfor %}
+            </div>
+        </div>
     </form>
     {% if error %}
     <div class="error-msg">{{ error }}</div>
@@ -55,4 +68,14 @@
     </ul>
 </section>
 {% endif %}
+
+<script>
+// Highlight selected style
+document.querySelectorAll('.style-option input').forEach(radio => {
+    radio.addEventListener('change', function() {
+        document.querySelectorAll('.style-option').forEach(el => el.classList.remove('selected'));
+        this.closest('.style-option').classList.add('selected');
+    });
+});
+</script>
 {% endblock %}

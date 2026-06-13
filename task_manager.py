@@ -33,7 +33,6 @@ def _load_task(task_id: str) -> dict:
 
 
 def get_task(task_id: str) -> dict | None:
-    """Get task by ID. Returns None if not found."""
     path = _get_task_path(task_id)
     if not os.path.exists(path):
         return None
@@ -41,7 +40,6 @@ def get_task(task_id: str) -> dict | None:
 
 
 def list_tasks() -> list:
-    """List all recent task IDs and statuses."""
     tasks = []
     if not os.path.exists(config.TRANSCRIPTS_DIR):
         return tasks
@@ -62,7 +60,7 @@ def list_tasks() -> list:
     return tasks
 
 
-def create_task(url: str) -> str:
+def create_task(url: str, note_style: str = "default") -> str:
     """Create a new task and start background processing."""
     global _current_task
 
@@ -70,6 +68,7 @@ def create_task(url: str) -> str:
     task = {
         "id": task_id,
         "url": url,
+        "note_style": note_style,
         "status": "queued",
         "progress": 0,
         "title": "",
@@ -112,6 +111,7 @@ def _run_pipeline(task_id: str):
     try:
         task = _load_task(task_id)
         url = task["url"]
+        note_style = task.get("note_style", "default")
 
         # === Step 1: Download ===
         _update_task(task_id, status="downloading", progress=10, message="下载音频中...")
@@ -151,8 +151,8 @@ def _run_pipeline(task_id: str):
 
         # === Step 5: LLM Notes ===
         _update_task(task_id, status="summarizing", progress=88, message="生成笔记摘要中...")
-        logger.info("[%s] Generating notes...", task_id)
-        notes = llm.generate_notes(polished)
+        logger.info("[%s] Generating notes (style: %s)...", task_id, note_style)
+        notes = llm.generate_notes(polished, style=note_style)
         _update_task(
             task_id,
             status="done",

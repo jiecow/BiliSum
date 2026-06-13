@@ -3,6 +3,9 @@
 {% block content %}
 <section class="result-header">
     <h2>{{ title or '(未知视频)' }}</h2>
+    {% if note_style_label %}
+    <span class="style-badge">{{ note_style_label }}</span>
+    {% endif %}
     {% if status == 'error' %}
     <div class="error-banner">
         ❌ 处理出错：{{ error }}

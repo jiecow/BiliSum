@@ -54,6 +54,34 @@ body {
     border: 1px solid #fcc;
 }
 
+/* Style Selector */
+.style-selector {
+    margin-top: 16px;
+}
+.style-selector label { display: block; font-weight: 600; margin-bottom: 8px; }
+.style-options {
+    display: flex; flex-wrap: wrap; gap: 6px;
+}
+.style-option {
+    display: inline-flex; align-items: center;
+    padding: 6px 12px; border-radius: 20px;
+    border: 1.5px solid #ddd; cursor: pointer;
+    font-size: 0.85em; transition: all 0.15s;
+    background: #fff;
+}
+.style-option:hover { border-color: #fb7299; background: #fff5f7; }
+.style-option.selected { border-color: #fb7299; background: #fb7299; color: #fff; }
+.style-option input { display: none; }
+.style-label { white-space: nowrap; }
+
+/* Style Badge on Result Page */
+.style-badge {
+    display: inline-block; margin-top: 8px;
+    padding: 4px 14px; border-radius: 16px;
+    background: #fb7299; color: #fff;
+    font-size: 0.85em;
+}
+
 /* Steps */
 .info-section { margin: 40px 0; }
 .steps {

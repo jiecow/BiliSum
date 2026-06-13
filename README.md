@@ -30,7 +30,20 @@ git clone https://github.com/jiecow/BiliSum.git
 cd bilisum
 ```
 
-### 2. 创建虚拟环境并安装依赖
+### 2. 拉取最新代码（更新用）
+
+后续项目有更新时，进入项目目录拉取最新代码：
+
+```bash
+cd bilisum
+git pull
+source .venv/bin/activate
+pip install -r requirements.txt  # 如有依赖更新
+```
+
+> `git pull` 会从 GitHub 下载最新改动，不会影响你已有的配置文件。
+
+### 3. 创建虚拟环境并安装依赖
 
 ```bash
 python3 -m venv .venv
@@ -38,7 +51,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 3. 下载 Whisper 模型
+### 4. 下载 Whisper 模型
 
 ```bash
 python3 -c "from faster_whisper import WhisperModel; WhisperModel('base', device='cpu', compute_type='int8')"
@@ -46,7 +59,7 @@ python3 -c "from faster_whisper import WhisperModel; WhisperModel('base', device
 
 > 这会下载约 140MB 的模型文件（仅首次需要）。如果网络慢，可改用 `tiny` 模型（约 75MB，更快但准确率略低）。
 
-### 4. 配置 API Key（二选一）
+### 5. 配置 API Key（二选一）
 
 #### 方法1：环境变量（推荐，不写死在代码里）
 

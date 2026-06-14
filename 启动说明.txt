@@ -13,7 +13,7 @@ cd ~/bilisum
 source venv/bin/activate
 
 # 2. 设置 API Key（如果已过期，去 https://platform.deepseek.com/api_keys 重新申请）
-export DEEPSEEK_API_KEY="sk-e3dc1a065de343f6a590ca215cc306f6"
+export DEEPSEEK_API_KEY="空"
 
 # 3. 如果端口被占用，先杀掉旧进程
 kill $(lsof -ti:3015)
